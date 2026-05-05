@@ -20,6 +20,11 @@ switch ($resource) {
     handle_processes($action);
     break;
 
+  case 'runs':
+    require_once __DIR__ . '/runs.php';
+    handle_runs($action);
+    break;
+
   default:
     json(['error' => 'Not found'], 404);
 }

@@ -6,11 +6,24 @@ Admins build process flows, checklists, evaluations, and outcomes. Agents run pr
 
 ## Architecture
 
-- Frontend: React + Vite
+- Frontend: React + Vite (build only)
 - Backend: PHP 8
 - Database: MySQL
-- Hosting target: Hostinger-compatible PHP hosting
+- Deployment: Hostinger (Other / Static + PHP)
+
+## Structure
+
+```
+/public          → React build output (served to users)
+/backend/api     → PHP API endpoints
+/backend/lib     → backend logic
+```
 
 ## Core rule
 
-PHP handles data and actions. React handles all UI. No autoload scripts. No DOM patching. No mixed PHP-rendered pages.
+PHP handles data and actions. React handles all UI.
+No autoload scripts. No DOM patching. No mixed PHP-rendered pages.
+
+## Deployment
+
+See `/docs/DEPLOYMENT_HOSTINGER.md`

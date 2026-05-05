@@ -1,0 +1,12 @@
+{
+  "name": "nextstep/app",
+  "description": "NextStep PHP and browser-native React app for Hostinger deployment.",
+  "type": "project",
+  "require": {
+    "php": ">=8.1"
+  },
+  "config": {
+    "vendor-dir": "backend/vendor"
+  },
+  "license": "proprietary"
+}

@@ -17,8 +17,7 @@ This branch implements the minimum stable authentication foundation:
 ## Project structure
 
 ```txt
-index.php                   PHP-supported browser entry point
-composer.json               PHP project metadata for platform detection
+index.html                  Browser entry point
 .htaccess                   Hostinger/Apache API + SPA routing
 src/main.js                 Browser-native React app, no Node build step
 src/app/api.js              Shared frontend API client
@@ -30,9 +29,9 @@ backend/migrations/*.sql    MySQL schema migrations
 
 ## Why there is no Node build setup
 
-This project is intentionally a PHP app with a plain static frontend. Hostinger can detect and serve it as a PHP site because the repository root contains `index.php` and PHP project metadata; there is no Node project file, JavaScript framework config file, or build command required for deployment.
+This project is intentionally a plain static frontend plus PHP backend. Hostinger can serve the app directly as files, so there is no Node project file, framework config file, or build command required for deployment.
 
-The frontend uses browser-native ES modules and an import map for React inside `index.php`. Upload the repository files to Hostinger, import the database migration, configure PHP database credentials, and open the site.
+The frontend uses browser-native ES modules and an import map for React. Upload the repository files to Hostinger, import the database migration, configure PHP database credentials, and open the site.
 
 ## Backend configuration
 

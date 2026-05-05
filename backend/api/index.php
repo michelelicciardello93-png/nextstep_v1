@@ -25,6 +25,11 @@ switch ($resource) {
     handle_runs($action);
     break;
 
+  case 'setup':
+    require_once __DIR__ . '/setup.php';
+    handle_setup($action);
+    break;
+
   default:
     json(['error' => 'Not found'], 404);
 }

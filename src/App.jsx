@@ -2,64 +2,32 @@ import { useState } from 'react';
 import { api } from './app/api';
 
 export default function App() {
-  const [runId, setRunId] = useState(null);
-  const [node, setNode] = useState(null);
-  const [completed, setCompleted] = useState(false);
+  const [setupStatus, setSetupStatus] = useState(null);
+  const [message, setMessage] = useState('');
 
-  const installDemo = async () => {
-    const res = await api('setup/install-demo', { method: 'POST' });
-    alert('Demo installed. Process ID: ' + res.process_id);
-  };
-
-  const start = async () => {
-    const res = await api('runs/start', {
-      method: 'POST',
-      body: { process_id: 1, version_id: 1 }
-    });
-
-    setRunId(res.run_id);
-    setNode(res.node);
-    setCompleted(res.completed);
-  };
-
-  const step = async (answer) => {
-    const res = await api('runs/step', {
-      method: 'POST',
-      body: { run_id: runId, answer }
-    });
-
-    setNode(res.node);
-    setCompleted(res.completed);
+  const checkSetup = async () => {
+    try {
+      const res = await api('setup/status');
+      setSetupStatus(res);
+      setMessage('Setup status loaded.');
+    } catch (error) {
+      setMessage(error.message);
+    }
   };
 
   return (
-    <div style={{ padding: 20 }}>
+    <main style={{ padding: 24, fontFamily: 'Inter, Arial, sans-serif' }}>
       <h1>NextStep v1</h1>
+      <p>Foundation mode: database setup, superadmin creation, workspace auth, and roles.</p>
 
-      {!runId && (
-        <>
-          <button onClick={installDemo}>Install Demo</button>
-          <button onClick={start} style={{ marginLeft: 10 }}>Start Flow</button>
-        </>
-      )}
-
-      {node && !completed && (
-        <div>
-          <h2>{node.title}</h2>
-          {node.options?.map(opt => (
-            <button key={opt} onClick={() => step(opt)} style={{ marginRight: 10 }}>
-              {opt}
-            </button>
-          ))}
-        </div>
-      )}
-
-      {node && completed && (
-        <div>
-          <h2>Outcome:</h2>
-          <p>{node.title}</p>
-        </div>
-      )}
-    </div>
+      <section style={{ marginTop: 24 }}>
+        <h2>Component 1 — Setup</h2>
+        <button onClick={checkSetup}>Check setup status</button>
+        {message && <p>{message}</p>}
+        {setupStatus && (
+          <pre>{JSON.stringify(setupStatus, null, 2)}</pre>
+        )}
+      </section>
+    </main>
   );
 }
